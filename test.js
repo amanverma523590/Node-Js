@@ -1,7 +1,7 @@
-const {add,sub} = require("./math")
+// const {add,sub} = require("./math")
 
-console.log(add(5,10));
-console.log(sub(5,10));
+// console.log(add(5,10));
+// console.log(sub(5,10));
 
 // *------------------------------------------------------------------*
 
@@ -20,6 +20,13 @@ console.log(sub(5,10));
 
 // *--------------------------------------------------------------------*
 //create file
+
+const fs = require('fs');
+fs.unlinkSync('File4.txt')
+// fs.appendFile('File1.txt','naya data without override ?','utf-8',(err,data)=>{
+//     if(err) throw err;
+//     console.log('data writeen succesfully')
+// })
 // const fs = require('fs');
 
 // fs.appendFile('./File2.txt','This is File 2 content \n', (err,data)=>{
