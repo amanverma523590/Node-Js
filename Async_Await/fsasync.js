@@ -74,18 +74,18 @@
 
 //delete
 
-const fs = require('fs/promises');
-const path = require('path');
+// const fs = require('fs/promises');
+// const path = require('path');
 
-const fileName = 'file1.txt';
-const filePath = path.join(__dirname,fileName);
+// const fileName = 'file1.txt';
+// const filePath = path.join(__dirname,fileName);
 
-const deleteFile = async ()=>{
-    try {
-        await fs.unlink(filePathskjsj);
-        console.log('file deleted successfully')
-    } catch (error) {
-        console.log('ye kya bak rahe ho mc',error)
-    }
-}
-deleteFile();
+// const deleteFile = async ()=>{
+//     try {
+//         await fs.unlink(filePathskjsj);
+//         console.log('file deleted successfully')
+//     } catch (error) {
+//         console.log('ye kya bak rahe ho mc',error)
+//     }
+// }
+// deleteFile();
