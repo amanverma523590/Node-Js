@@ -9,7 +9,7 @@ import { error } from 'console';
 const getJoke = () =>{
     const url = "https://official-joke-api.appspot.com/random_joke";
 
-    https.get(url,(response)=>{ //.get method give object incoming msg we can call respone her
+    https.get(url,(response)=>{ //.get method give object incoming msg we can call respone her data,end,error
         let data = " "
         response.on('data',(chunk)=>{  //data mil raha hai as chunk
             data += chunk;
