@@ -1,0 +1,83 @@
+*{
+    margin: 0;padding: 0;box-sizing: border-box;
+}
+html,body{
+    height: 100vh;
+    width: 100%;
+    background-color: #0A0A0A;
+    font-family: "Poppins",sans-serif;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box{
+    height: 500px;
+    width: 400px;
+    background-color: #2C2C2C;
+    border-radius: 10px;
+}
+.heading{
+    color: blanchedalmond;
+    text-align: center;
+    /* background-color: brown; */
+    margin: 10px 0px 0px 0px;
+}
+label{
+    font-size: larger;
+    font-weight: 600;
+    margin-left: -32px;
+}
+#form{
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    margin: 0px 0px 0px 50px;
+}
+input{
+    width: 350px;
+    height: 40px;
+    margin-top: 8px;
+    margin-left: -32px;
+    padding: 10px 12px;
+
+    /* border: 1px solid #444;      soft border */
+    border-radius: 8px;
+    outline: none;
+
+    background-color: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 20px;
+
+    transition: all 0.25s ease;  /* smooth animation */
+}
+
+.btn{
+    width: 220px;
+    line-height: 45px;
+    margin: 25px 0 20px 37px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #f5c542;   /* warm accent color */
+    color: #0A0A0A;
+
+    font-size: 30px;
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+.btn:hover{
+    background-color: #f1b717;
+    transform: translateY(-1px);
+}
+
+
+h2{
+    text-align: center;
+    margin-top: 30px;
+}
