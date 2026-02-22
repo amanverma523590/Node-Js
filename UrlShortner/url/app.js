@@ -46,6 +46,16 @@ const server = createServer(async (req, res) => {
       const links = await loadLinks();
       res.writeHead(200,{"Content-Type":"application/json"});
       return res.end(JSON.stringify(links));
+    }else{
+      const links = await loadLinks();
+      const shortCode = req.url.slice(1);  // to remove / "/google.com"
+      // console.log("link redirect",req.url)
+      if(links[shortCode]){
+        res.writeHead(302,{location : links[shortCode]});
+        return res.end();
+      }
+      res.writeHead(404,{"Content-Type" : "text/plain"});
+        return res.end("Shortend URL not found");
     }
   }
 
