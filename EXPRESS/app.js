@@ -113,6 +113,11 @@ app.get("/profile/:username/article/:plug",(req,res)=>{
   res.send(`<h1>My slug is ${formatPlug} and my name is ${req.params.username}</h1>`)
 })
 
+app.get("/product",(req,res)=>{
+  res.send(`<h1>Product Page ${req.query.search} model is ${req.query.model} </h1>`);
+  console.log(req.query)
+})
+
 app.listen(PORT, ()=>{
   console.log(`listening on port ${PORT}`);
 })
