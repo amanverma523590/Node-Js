@@ -7,3 +7,9 @@
 h1{
     font-size: 50px;
 }
+button{
+    background-color: black;
+    color: white;
+    width: 50px;
+    border-radius: none;
+}
