@@ -95,29 +95,67 @@
 // ▶️▶️▶️⛔⛔⛔⛔Route Parameter
 
 
+// import express from "express";
+// import {PORT} from "./env.js"
+
+// const app = express();
+
+// app.get("/",(req,res)=>{
+//   res.send('hiii')
+// });
+
+// app.get("/profile/:username",(req,res)=>{
+//   console.log(req.params)
+//   res.send(`<h1>My username is ${req.params.username}</h1>`);
+// })
+// app.get("/profile/:username/article/:plug",(req,res)=>{
+//   const formatPlug = req.params.plug.replace(/-/g, " ")
+//   res.send(`<h1>My slug is ${formatPlug} and my name is ${req.params.username}</h1>`)
+// })
+
+// app.get("/product",(req,res)=>{
+//   res.send(`<h1>Product Page ${req.query.search} model is ${req.query.model} </h1>`);
+//   console.log(req.query)
+// })
+
+// app.listen(PORT, ()=>{
+//   console.log(`listening on port ${PORT}`);
+// })
+
+
+//⛔⛔Submit data in form
+
 import express from "express";
-import {PORT} from "./env.js"
+import {PORT} from "./env.js";
+import path from "path";
 
 const app = express();
 
-app.get("/",(req,res)=>{
-  res.send('hiii')
-});
+const staticPath = path.join(import.meta.dirname,"public");
 
-app.get("/profile/:username",(req,res)=>{
-  console.log(req.params)
-  res.send(`<h1>My username is ${req.params.username}</h1>`);
-})
-app.get("/profile/:username/article/:plug",(req,res)=>{
-  const formatPlug = req.params.plug.replace(/-/g, " ")
-  res.send(`<h1>My slug is ${formatPlug} and my name is ${req.params.username}</h1>`)
+app.use(express.static(staticPath))
+
+// app.get("/contact",(req,res)=>{
+//   console.log(req.query);
+//   res.redirect("/");
+// })  gives id password on url so not recoomended do we use post methos
+
+//direct  data nahi dhikege use middleware
+
+app.use(express.urlencoded({extended:true}));
+
+app.post("/contact",(req,res)=>{
+  console.log(req.body);
+  res.redirect("/");
 })
 
-app.get("/product",(req,res)=>{
-  res.send(`<h1>Product Page ${req.query.search} model is ${req.query.model} </h1>`);
-  console.log(req.query)
+
+app.use((req,res)=>{
+  // return res.status(404).send("Page  not found")
+
+  return res.status(404).sendFile(path.join(import.meta.dirname,"views","404.html"))
 })
 
-app.listen(PORT, ()=>{
-  console.log(`listening on port ${PORT}`);
+app.listen(PORT,()=>{
+  console.log(`Listening on ${PORT}`)
 })
