@@ -1,29 +1,20 @@
-import { readFile, writeFile } from "fs/promises";
-import { createServer } from "http";
-import path, { join } from "path";
+import {readFile,writeFile} from "fs/promises";
 import crypto from "crypto";
-import express from { express }
+import express from "express";
 import fs from "fs/promises"
+import path from "path"
 
 
 const app = express();
 
 
 app.use(express.static("public"))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const PORT = 3002;
 const DATA_FILE = path.join("data", 'links.json')
 
-const serveFile = async (res, filepath, contentType) => {
-    try {
-        const data = await readFile(filepath);
-        res.writeHead(200, { "Content-Type": contentType });
-        res.end(data);
-    } catch (error) {
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("404 Page Not Found");
-    }
-};
 
 const loadLinks = async () => {
     try {
@@ -44,7 +35,7 @@ const saveLinks = async (links) => {
 
 app.get("/", async (req, res) => {
     try {
-        const file = await fs.readFile(path.join("views", "index.html"));
+        const file = await readFile(path.join("views", "index.html"));
         const links = await loadLinks();
 
           const content = file.toString() .replaceAll("{{shortend_url}}",
@@ -57,6 +48,7 @@ app.get("/", async (req, res) => {
                     )
                     .join("")   // ⭐ IMPORTANT
             );
+            return res.send(content)
 
     } catch (error) {
         console.log(error)
@@ -65,48 +57,42 @@ app.get("/", async (req, res) => {
 })
 
 app.post("/", async (req, res) => {
-    try {
-        const { url, shortCode } = req.body(body);
-        const finalShortCode = shortCode || crypto.randomBytes(4).toString("hex");
+  try {
+    const { url, shortCode } = req.body;
+    const links = await loadLinks();
 
-        if (links[finalShortCode]) {
-            return res.status(400).send("short code already exists")
+    const finalShortCode = shortCode || crypto.randomBytes(4).toString("hex");
+
+    if (links[finalShortCode]) {
+      return res.status(400).send("short code already exists");
+    }
+
+    links[finalShortCode] = url;
+    await saveLinks(links);
+
+    return res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/:shortCode",async (req,res)=>{
+    try{
+        const {shortCode} = req.params;
+        const links = await loadLinks();
+
+        if(!links[shortCode]){
+            return res.status(404).send("404 error occured")
         }
-        links[finalShortCode] = url;
-        await saveLinks(links);
-    } catch (error) {
-
+        return res.redirect(links[shortCode]);
+    }
+    catch(err){
+        console.log(err)
+        return res.status(500).send("Internal server error");
     }
 })
 
-const server = createServer(async (req, res) => {
-    console.log(req.url);
-
-    if (req.method === "GET") {
-        if (req.url === "/") {
-            return serveFile(res, path.join("Public", "index.html"), "text/html");
-        } else if (req.url === "/style.css") {
-            return serveFile(res, path.join("Public", "style.css"), "text/css");
-        } else if (req.url === "/links") {
-            const links = await loadLinks();
-            res.writeHead(200, { "Content-Type": "application/json" });
-            return res.end(JSON.stringify(links));
-        } else {
-            const links = await loadLinks();
-            const shortCode = req.url.slice(1);  // to remove / "/google"
-            // console.log("link redirect",req.url)
-            if (links[shortCode]) {
-                res.writeHead(302, { location: links[shortCode] });
-                return res.end();
-            }
-            res.writeHead(404, { "Content-Type": "text/plain" });
-            return res.end("Shortend URL not found");
-        }
-    }
-
-
-});
-
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+app.listen(PORT,()=>{
+    console.log(`Server running at ${PORT}`)
+})
