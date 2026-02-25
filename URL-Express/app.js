@@ -9,7 +9,7 @@ app.use(express.json());
 
 const PORT = 3002;
 
-app.use(shortRoute)
+app.use(shortRoute);
 
 app.set("view engine", "ejs");
 

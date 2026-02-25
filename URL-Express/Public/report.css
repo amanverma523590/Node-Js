@@ -1,0 +1,36 @@
+/* Page background */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f8;
+}
+
+/* Report card container */
+.report-card {
+  width: 400px;
+  margin: 60px auto;
+  background: wheat;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Heading */
+.report-card h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Student info */
+.report-card p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #555;
+}
+
+/* Highlight values */
+.report-card span {
+  font-weight: bold;
+  color: #000;
+}
