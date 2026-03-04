@@ -1,0 +1,5 @@
+1st file-> 2nd file
+And honestly — this is why learning Node basics first (which you’re doing) makes Express feel easy later.node 
+If you want, I can explain why pipe() is one of the most important stream concepts (this appears a lot in real projects).
+
+aman verma
